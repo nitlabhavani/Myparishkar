@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply for Welfare Scheme - My Parishkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2e7d32;
+    --primary-light: #43a047;
+    --primary-dark: #1b5e20;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(135deg, #0d3b1e 0%, #1b5e20 50%, #2e7d32 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 16px;
+  }
+
+  .apply-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    padding: 40px 36px;
+    border-radius: 20px;
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 520px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .brand-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e8f5e9;
+    color: var(--primary);
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .lang-select {
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid #c8e6c9;
+    background: #f1f8f3;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: pointer;
+    outline: none;
+  }
+
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    color: #6b7280;
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+  }
+
+  .messages {
+    margin-bottom: 18px;
+  }
+
+  .alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+    text-align: left;
+  }
+
+  label {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    background: #f9fafb;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.15);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 10px;
+    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+  }
+
+  .submit-btn:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(46, 125, 50, 0.45);
+  }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="apply-card">
+  <div class="top-row">
+    <span class="brand-chip">📋 <span data-translate="app_form_title">Digital Application</span></span>
+    <select id="language" class="lang-select">
+      <option value="en">English</option>
+      <option value="te">తెలుగు</option>
+    </select>
+  </div>
+
+  <h1 data-translate="app_form_title">Scheme Application Form</h1>
+  <p class="subtitle" data-translate="app_form_sub">Submit your verification details to apply for government support</p>
+
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="POST" action="{% url 'apply' %}">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name" data-translate="app_name_label">Applicant Full Name *</label>
+        <input type="text" id="name" name="name" value="{{ request.user.first_name|default:'' }}" placeholder="Ramesh Kumar" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone" data-translate="app_phone_label">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" placeholder="9876543210" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email" data-translate="app_email_label">Email Address *</label>
+      <input type="email" id="email" name="email" value="{{ request.user.email|default:'' }}" placeholder="ramesh@example.com" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="sector" data-translate="app_sector_label">Welfare Sector *</label>
+        <select id="sector" name="sector" required>
+          <option value="">-- Choose Sector --</option>
+          <option value="Agriculture" {% if sector == 'Agriculture' %}selected{% endif %}>🌱 Agriculture / వ్యవసాయం</option>
+          <option value="Education" {% if sector == 'Education' %}selected{% endif %}>🎓 Education / విద్య</option>
+          <option value="Healthcare" {% if sector == 'Healthcare' %}selected{% endif %}>🏥 Healthcare / వైద్యం</option>
+          <option value="Housing" {% if sector == 'Housing' %}selected{% endif %}>🏠 Housing / గృహ నిర్మాణం</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="scheme_name" data-translate="app_scheme_label">Scheme Name *</label>
+        <input type="text" id="scheme_name" name="scheme_name" value="{{ scheme_name|default:'' }}" placeholder="e.g. PM Kisan, Vidya Deevena" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="details" data-translate="app_details_label">Eligibility Details / Remarks (Optional)</label>
+      <textarea id="details" name="details" rows="3" data-translate-placeholder="app_details_ph" placeholder="Mention your land holding, college course, annual family income, or housing status..."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" data-translate="app_submit_btn">Submit Scheme Application</button>
+  </form>
+
+  <a href="{% url 'user_main' %}" class="back-link" data-translate="app_cancel_btn">← Cancel & Return to Dashboard</a>
+</div>
+
+<script src="/static/js/translations.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Dashboard - My Parishkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2e7d32;
+    --primary-light: #4caf50;
+    --primary-dark: #1b5e20;
+    --card-bg: #ffffff;
+    --text-main: #1f2937;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f3f7f4;
+    color: var(--text-main);
+    min-height: 100vh;
+  }
+
+  /* Navigation Bar */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .nav-brand {
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .lang-selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  .lang-selector select {
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .lang-selector select option {
+    color: #111827;
+  }
+
+  .user-badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .logout-btn {
+    background-color: white;
+    color: #1b5e20;
+    padding: 7px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .logout-btn:hover {
+    background-color: #e8f5e9;
+    transform: translateY(-1px);
+  }
+
+  /* Hero Banner */
+  .dash-hero {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #43a047 100%);
+    color: white;
+    padding: 40px 20px 50px;
+    text-align: center;
+    position: relative;
+  }
+
+  .dash-hero h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .dash-hero p {
+    font-size: 1.05rem;
+    opacity: 0.92;
+    max-width: 600px;
+    margin: 0 auto 24px;
+  }
+
+  /* Live Search Box */
+  .search-wrapper {
+    max-width: 540px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 14px 20px 14px 46px;
+    border-radius: 30px;
+    border: none;
+    font-size: 0.95rem;
+    font-family: inherit;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    outline: none;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: #9ca3af;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 35px auto 60px;
+    padding: 0 20px;
+  }
+
+  .messages-box {
+    margin-bottom: 25px;
+  }
+
+  .alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  .alert-success { background: #e8f5e9; color: #1b5e20; border: 1px solid #c8e6c9; }
+  .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+  /* Sectors Grid */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .section-header h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .apply-quick-btn {
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    color: white;
+    padding: 9px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+    transition: all 0.2s;
+  }
+
+  .apply-quick-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35);
+  }
+
+  .sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    margin-bottom: 45px;
+  }
+
+  .sector-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sector-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px rgba(46, 125, 50, 0.16);
+    border-color: #81c784;
+  }
+
+  .sector-icon {
+    font-size: 2.5rem;
+    margin-bottom: 14px;
+  }
+
+  .sector-card h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+
+  .sector-card p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .sector-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  /* My Applications Table Card */
+  .table-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+  }
+
+  .table-card h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+
+  th, td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.9rem;
+  }
+
+  th {
+    background-color: #f9fafb;
+    color: #4b5563;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+
+  .badge-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .status-Approved { background: #dcfce7; color: #15803d; }
+  .status-Pending { background: #fef3c7; color: #b45309; }
+  .status-Rejected { background: #fee2e2; color: #b91c1c; }
+
+  .empty-apps {
+    text-align: center;
+    padding: 35px 20px;
+    color: #6b7280;
+  }
+
+  .empty-apps p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+  <a href="{% url 'user_main' %}" class="nav-brand">
+    <span>🌾</span>
+    <span data-translate="app_title">My Parishkar</span>
+  </a>
+  <div class="nav-user">
+    <div class="lang-selector">
+      <span>🌐</span>
+      <select id="language" class="lang-select">
+        <option value="en">English</option>
+        <option value="te">తెలుగు</option>
+      </select>
+    </div>
+    <div class="user-badge">👤 {{ request.user.first_name|default:request.user.username }}</div>
+    <a href="{% url 'user_logout' %}" class="logout-btn" data-translate="logout">Log Out</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="dash-hero">
+  <h1><span data-translate="welcome_user">Welcome</span>, {{ request.user.first_name|default:request.user.username }}!</h1>
+  <p data-translate="dash_subtitle">Explore government welfare schemes or track your submitted applications</p>
+
+  <div class="search-wrapper">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="schemeSearch" class="search-input" data-translate-placeholder="search_schemes_placeholder" placeholder="Search schemes (e.g. Kisan, Vidya, Ayushman, PMAY)..." onkeyup="filterSectors(this.value)">
+  </div>
+</header>
+
+<div class="container">
+  {% if messages %}
+    <div class="messages-box">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Sectors -->
+  <div class="section-header">
+    <h2 data-translate="explore_sectors">Explore Welfare Sectors</h2>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="{% url 'eligibility_calculator' %}" class="apply-quick-btn" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);" data-translate="calculator">🎯 Eligibility Calculator</a>
+      <a href="{% url 'apply' %}" class="apply-quick-btn" data-translate="new_app_btn">+ New Application</a>
+    </div>
+  </div>
+
+  <div class="sectors-grid" id="sectorsGrid">
+    <a href="{% url 'agriculture' %}" class="sector-card" data-keywords="agriculture kisan farmer fasal crop sinchai pmkisan">
+      <div>
+        <div class="sector-icon">🌱</div>
+        <h3 data-translate="sec_agri">Agriculture</h3>
+        <p data-translate="agri_subtitle">Financial assistance, crop insurance, irrigation support, and infra subsidies for farmers.</p>
+      </div>
+      <div class="sector-footer">
+        <span data-translate="active_schemes_count">4 Active Schemes</span>
+        <span data-translate="view_schemes">View Schemes →</span>
+      </div>
+    </a>
+
+    <a href="{% url 'education' %}" class="sector-card" data-keywords="education student school vidya deevena vasathi meal scholarship kit">
+      <div>
+        <div class="sector-icon">🎓</div>
+        <h3 data-translate="sec_edu">Education</h3>
+        <p data-translate="edu_subtitle">Tuition reimbursement, hostel allowances, educational kits, and nutritional meal programs.</p>
+      </div>
+      <div class="sector-footer">
+        <span data-translate="active_schemes_count">4 Active Schemes</span>
+        <span data-translate="view_schemes">View Schemes →</span>
+      </div>
+    </a>
+
+    <a href="{% url 'health' %}" class="sector-card" data-keywords="healthcare health medical hospital ayushman bharat pmjay insurance bima">
+      <div>
+        <div class="sector-icon">🏥</div>
+        <h3 data-translate="sec_health">Healthcare</h3>
+        <p data-translate="health_subtitle">Free secondary & tertiary healthcare insurance, maternal welfare, and state hospital benefits.</p>
+      </div>
+      <div class="sector-footer">
+        <span data-translate="active_schemes_count">4 Active Schemes</span>
+        <span data-translate="view_schemes">View Schemes →</span>
+      </div>
+    </a>
+
+    <a href="{% url 'housing' %}" class="sector-card" data-keywords="housing home pmay loan subsidy house shelter arhc blc clss">
+      <div>
+        <div class="sector-icon">🏠</div>
+        <h3 data-translate="sec_house">Housing</h3>
+        <p data-translate="house_subtitle">Affordable housing projects, interest subsidies on home loans, and urban rental complexes.</p>
+      </div>
+      <div class="sector-footer">
+        <span data-translate="active_schemes_count">4 Active Schemes</span>
+        <span data-translate="view_schemes">View Schemes →</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- My Applications -->
+  <div class="table-card">
+    <h2 data-translate="my_applications">📋 My Scheme Applications</h2>
+    {% if user_applications %}
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th data-translate="th_id">#</th>
+              <th data-translate="th_scheme">Scheme Name</th>
+              <th data-translate="th_sector">Sector</th>
+              <th data-translate="th_applicant">Applicant Name</th>
+              <th data-translate="th_date">Date Applied</th>
+              <th data-translate="th_status">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for app in user_applications %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><strong>{{ app.scheme_name }}</strong></td>
+                <td>{{ app.sector }}</td>
+                <td>{{ app.applicant_name }}</td>
+                <td>{{ app.applied_at|date:"M d, Y" }}</td>
+                <td><span class="badge-status status-{{ app.status }}" data-translate="status_{{ app.status|lower }}">{{ app.status }}</span></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-apps">
+        <p data-translate="no_applications">You haven't submitted any scheme applications yet.</p>
+        <a href="{% url 'apply' %}" class="apply-quick-btn" data-translate="apply_now_prompt">Apply for a Scheme Now</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="/static/js/translations.js"></script>
+<script>
+  function filterSectors(query) {
+    const q = query.toLowerCase().trim();
+    const cards = document.querySelectorAll('.sector-card');
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase() + ' ' + (card.getAttribute('data-keywords') || '');
+      if (text.includes(q)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

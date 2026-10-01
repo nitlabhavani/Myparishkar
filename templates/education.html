@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Schemes - My Parishkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2e7d32;
+    --primary-light: #4caf50;
+    --primary-dark: #1b5e20;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f4f7f5;
+    color: #1f2937;
+    min-height: 100vh;
+  }
+
+  .sector-hero {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%);
+    color: white;
+    padding: 35px 20px 45px;
+    text-align: center;
+    position: relative;
+  }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 16px;
+  }
+
+  .nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: white;
+    text-decoration: none;
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .nav-back:hover {
+    background: white;
+    color: var(--primary-dark);
+  }
+
+  .lang-select {
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .lang-select option {
+    color: #111827;
+  }
+
+  .sector-hero h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .sector-hero p {
+    font-size: 1.05rem;
+    opacity: 0.92;
+    max-width: 650px;
+    margin: 0 auto 20px;
+  }
+
+  .search-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 12px 20px 12px 42px;
+    border-radius: 30px;
+    border: none;
+    font-size: 0.95rem;
+    outline: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #9ca3af;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 35px auto 60px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+  }
+
+  .scheme-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .scheme-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(46, 125, 50, 0.18);
+    border-color: #81c784;
+  }
+
+  .scheme-img-wrapper {
+    height: 170px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scheme-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .scheme-card:hover .scheme-img-wrapper img {
+    transform: scale(1.04);
+  }
+
+  .scheme-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(27, 94, 32, 0.85);
+    backdrop-filter: blur(4px);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .scheme-content {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  .scheme-content h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+  }
+
+  .scheme-content p {
+    font-size: 0.92rem;
+    color: #4b5563;
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+
+  .scheme-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .btn-apply-portal {
+    flex: 1;
+    text-align: center;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    color: white;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-apply-portal:hover {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  }
+
+  .btn-external {
+    padding: 10px 14px;
+    background: #f3f4f6;
+    color: #374151;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-external:hover {
+    background: #e5e7eb;
+    color: #111827;
+  }
+</style>
+</head>
+<body>
+
+<header class="sector-hero">
+  <div class="nav-row">
+    <a href="{% url 'user_main' %}" class="nav-back" data-translate="back_to_dashboard">← Back to Dashboard</a>
+    <select id="language" class="lang-select">
+      <option value="en">English</option>
+      <option value="te">తెలుగు</option>
+    </select>
+  </div>
+
+  <h1 data-translate="edu_title">🎓 Education & Student Support Schemes</h1>
+  <p data-translate="edu_subtitle">Full tuition fee reimbursements, hostel allowances, educational kits, and nutrition programs</p>
+
+  <div class="search-wrapper">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" data-translate-placeholder="search_sector_placeholder" placeholder="Search schemes in this sector..." onkeyup="filterSchemes(this.value)">
+  </div>
+</header>
+
+<div class="container" id="schemesGrid">
+  <!-- Vidya Deevena -->
+  <div class="scheme-card" data-title="Jagananna Vidya Deevena fee reimbursement scholarship college university విద్యా దీవెన">
+    <div class="scheme-img-wrapper">
+      <span class="scheme-badge" data-translate="vidyadeevena_badge">100% Fee Reimbursement</span>
+      <img src="https://tse2.mm.bing.net/th/id/OIP.9e_W_W0ClvETPMrotBHAfQHaDt?pid=Api&P=0&h=180" alt="Vidya Deevena">
+    </div>
+    <div class="scheme-content">
+      <div>
+        <h2 data-translate="vidyadeevena_title">Vidya Deevena</h2>
+        <p data-translate="vidyadeevena_desc">Complete tuition fee reimbursement for students pursuing polytechnic, ITI, degree, and postgraduate courses.</p>
+      </div>
+      <div class="scheme-actions">
+        <a href="{% url 'apply' %}?sector=Education&scheme=Vidya+Deevena" class="btn-apply-portal" data-translate="btn_apply_portal">Apply via Portal</a>
+        <a href="https://jnanabhumi.ap.gov.in/" target="_blank" rel="noopener" class="btn-external" data-translate="btn_official">Official ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vasathi Deevena -->
+  <div class="scheme-card" data-title="Jagananna Vasathi Deevena hostel mess food allowance boarding వసతి దీవెన">
+    <div class="scheme-img-wrapper">
+      <span class="scheme-badge" data-translate="vasathideevena_badge">Hostel & Food Allowance</span>
+      <img src="https://tse1.mm.bing.net/th/id/OIP.EyCeBxO3xL2BBFWLHw2P1AHaEf?pid=Api&P=0&h=180" alt="Vasathi Deevena">
+    </div>
+    <div class="scheme-content">
+      <div>
+        <h2 data-translate="vasathideevena_title">Vasathi Deevena</h2>
+        <p data-translate="vasathideevena_desc">Financial assistance of up to ₹20,000 per year towards food and hostel accommodation for pursuing higher studies.</p>
+      </div>
+      <div class="scheme-actions">
+        <a href="{% url 'apply' %}?sector=Education&scheme=Vasathi+Deevena" class="btn-apply-portal" data-translate="btn_apply_portal">Apply via Portal</a>
+        <a href="https://aimindia.in/ap-jagananna-vasathi-deevena/" target="_blank" rel="noopener" class="btn-external" data-translate="btn_official">Official ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vidya Kanuka -->
+  <div class="scheme-card" data-title="Jagananna Vidya Kanuka school kit books uniform bag shoes విద్యా కానుక">
+    <div class="scheme-img-wrapper">
+      <span class="scheme-badge" data-translate="vidyakanuka_badge">Free Student Kits</span>
+      <img src="https://tse4.mm.bing.net/th/id/OIP.pAZbxbj_GvYgebCevBbbWQHaEK?pid=Api&P=0&h=180" alt="Vidya Kanuka">
+    </div>
+    <div class="scheme-content">
+      <div>
+        <h2 data-translate="vidyakanuka_title">Vidya Kanuka</h2>
+        <p data-translate="vidyakanuka_desc">Provides student kits including bilingual textbooks, notebooks, 3 pairs of uniforms, shoes, socks, and a school bag.</p>
+      </div>
+      <div class="scheme-actions">
+        <a href="{% url 'apply' %}?sector=Education&scheme=Vidya+Kanuka" class="btn-apply-portal" data-translate="btn_apply_portal">Apply via Portal</a>
+        <a href="https://sarkaribhatta.com/jagananna-vidya-kanuka/" target="_blank" rel="noopener" class="btn-external" data-translate="btn_official">Official ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mid Day Meal -->
+  <div class="scheme-card" data-title="PM Poshan Mid Day Meal Scheme nutritious lunch school student మధ్యాహ్న భోజనం">
+    <div class="scheme-img-wrapper">
+      <span class="scheme-badge" data-translate="middaymeal_badge">Nutrition Support</span>
+      <img src="https://tse1.mm.bing.net/th/id/OIP.HDvO-vqXOenJDFRDrH7SWgHaFj?pid=Api&P=0&h=180" alt="Mid Day Meal Scheme">
+    </div>
+    <div class="scheme-content">
+      <div>
+        <h2 data-translate="middaymeal_title">Mid Day Meal Scheme</h2>
+        <p data-translate="middaymeal_desc">Ensures healthy, hygienic, and nutritious hot cooked meals to school children in government and aided schools.</p>
+      </div>
+      <div class="scheme-actions">
+        <a href="{% url 'apply' %}?sector=Education&scheme=Mid+Day+Meal+Scheme" class="btn-apply-portal" data-translate="btn_apply_portal">Apply via Portal</a>
+        <a href="https://www.india.gov.in/official-website-mid-day-meal-scheme" target="_blank" rel="noopener" class="btn-external" data-translate="btn_official">Official ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/translations.js"></script>
+<script>
+  function filterSchemes(query) {
+    const q = query.toLowerCase().trim();
+    const cards = document.querySelectorAll('.scheme-card');
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase() + ' ' + (card.getAttribute('data-title') || '');
+      if (text.includes(q)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

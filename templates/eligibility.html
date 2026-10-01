@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scheme Eligibility Calculator - My Parishkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2e7d32;
+    --primary-light: #4caf50;
+    --primary-dark: #1b5e20;
+    --accent: #f59e0b;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f4f7f5;
+    color: #1f2937;
+    min-height: 100vh;
+  }
+
+  /* Navigation Bar */
+  .top-navbar {
+    background: #0d3b1e;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .nav-brand {
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .lang-select {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .lang-select option {
+    color: #111827;
+  }
+
+  .back-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary-dark);
+    text-decoration: none;
+    padding: 7px 18px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .back-btn:hover {
+    background: white;
+    transform: translateY(-1px);
+  }
+
+  /* Hero Banner */
+  .hero-header {
+    background: linear-gradient(135deg, #0d3b1e 0%, #1b5e20 50%, #2e7d32 100%);
+    color: white;
+    padding: 45px 20px 45px;
+    text-align: center;
+  }
+
+  .badge-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px);
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .hero-header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .hero-header p {
+    font-size: 1.05rem;
+    opacity: 0.92;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  /* Main Container Layout */
+  .layout-container {
+    max-width: 1200px;
+    margin: 35px auto 60px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Calculator Form Card */
+  .calc-card {
+    background: white;
+    border-radius: 18px;
+    padding: 28px 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+    position: sticky;
+    top: 90px;
+  }
+
+
+  .calc-card h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+
+  select, input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+    background: #f9fafb;
+  }
+
+  select:focus, input:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+  }
+
+  .reset-btn {
+    width: 100%;
+    padding: 10px;
+    background: #f3f4f6;
+    color: #4b5563;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    background: #e5e7eb;
+    color: #111827;
+  }
+
+  /* Results Section */
+  .results-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .results-header {
+    background: white;
+    padding: 18px 24px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .results-count {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .results-count span {
+    color: var(--primary);
+  }
+
+  .sector-filter-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    background: #f3f4f6;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #4b5563;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* Scheme Match Cards Grid */
+  .matches-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .match-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    border: 1px solid #e5e7eb;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .match-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(46, 125, 50, 0.14);
+    border-color: #81c784;
+  }
+
+  .match-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .match-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .score-100 { background: #dcfce7; color: #15803d; }
+  .score-high { background: #e0f2fe; color: #0369a1; }
+  .score-mid { background: #fef3c7; color: #b45309; }
+
+  .benefit-ribbon {
+    background: #f0fdf4;
+    border-left: 4px solid var(--primary);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 12px;
+  }
+
+  .match-desc {
+    font-size: 0.92rem;
+    color: #4b5563;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .qualify-reasons {
+    list-style: none;
+    margin-bottom: 18px;
+    background: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+
+  .qualify-reasons li {
+    font-size: 0.82rem;
+    color: #334155;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .qualify-reasons li span {
+    color: var(--primary);
+    font-weight: bold;
+  }
+
+  .match-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .apply-btn {
+    flex: 1;
+    text-align: center;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .apply-btn:hover {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  }
+
+  .official-link {
+    padding: 10px 14px;
+    background: #f1f5f9;
+    color: #334155;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .official-link:hover {
+    background: #e2e8f0;
+  }
+
+  @media (max-width: 900px) {
+    .layout-container {
+      grid-template-columns: 1fr;
+    }
+    .calc-card {
+      position: static;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="top-navbar">
+  <a href="{% url 'home' %}" class="nav-brand">
+    <span>🌾</span>
+    <span data-translate="app_title">My Parishkar</span>
+  </a>
+  <div class="nav-right">
+    <select id="language" class="lang-select">
+      <option value="en">English</option>
+      <option value="te">తెలుగు</option>
+    </select>
+    <a href="{% url 'user_main' %}" class="back-btn" data-translate="back_to_dashboard">← Back to Dashboard</a>
+  </div>
+</nav>
+
+<!-- Hero Banner -->
+<header class="hero-header">
+  <div class="badge-tag">🎯 Smart Citizen Tool</div>
+  <h1 data-translate="calc_title">Scheme Eligibility Calculator</h1>
+  <p data-translate="calc_sub">Answer a few simple profile questions to find all welfare schemes you qualify for</p>
+</header>
+
+<div class="layout-container">
+  <!-- Calculator Profile Inputs -->
+  <div class="calc-card">
+    <h2 data-translate="calc_profile_head">⚙️ Your Citizen Profile</h2>
+
+
+    <div class="form-group">
+      <label for="occupation" data-translate="calc_occ_label">Primary Occupation / Category</label>
+      <select id="occupation" onchange="runCalculator()">
+        <option value="all" data-translate="occ_all">Any / General Citizen</option>
+        <option value="farmer" data-translate="occ_farmer">Farmer / Landowner</option>
+        <option value="student" data-translate="occ_student">Student / Scholar</option>
+        <option value="worker" data-translate="occ_worker">Unorganized / Daily Wage Worker</option>
+        <option value="homeless" data-translate="occ_homeless">Homeless / Renting Citizen</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="income" data-translate="calc_income_label">Annual Household Income</label>
+      <select id="income" onchange="runCalculator()">
+        <option value="bpl" data-translate="inc_bpl">Below ₹1,00,000 (BPL / Low Income)</option>
+        <option value="ews" data-translate="inc_ews">₹1,00,000 - ₹2,50,000 (EWS)</option>
+        <option value="mig" data-translate="inc_mig">₹2,50,000 - ₹5,00,000 (Middle Income)</option>
+        <option value="high" data-translate="inc_high">Above ₹5,00,000</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="land" data-translate="calc_land_label">Agricultural Land Holding</label>
+      <select id="land" onchange="runCalculator()">
+        <option value="any" data-translate="land_any">Not Applicable</option>
+        <option value="small" data-translate="land_small">Small / Marginal Farmer (< 2 Hectares)</option>
+        <option value="large" data-translate="land_large">Medium or Large Farmer (> 2 Hectares)</option>
+        <option value="none" data-translate="land_none">No Agricultural Land</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="education" data-translate="calc_edu_label">Education Status</label>
+      <select id="education" onchange="runCalculator()">
+        <option value="any" data-translate="edu_any">Not Enrolled / Completed</option>
+        <option value="college" data-translate="edu_college">College / Degree / ITI / Polytechnic</option>
+        <option value="school" data-translate="edu_school">Primary / High School Student</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="housing" data-translate="calc_house_label">Current Housing Type</label>
+      <select id="housing" onchange="runCalculator()">
+        <option value="any" data-translate="house_any">Any Housing Condition</option>
+        <option value="rent" data-translate="house_rent">Rented House / Migrant Accommodation</option>
+        <option value="kutcha" data-translate="house_kutcha">Kutcha / Temporary House</option>
+        <option value="pucca" data-translate="house_pucca">Own Pucca House</option>
+      </select>
+    </div>
+
+    <button type="button" class="reset-btn" onclick="resetForm()" data-translate="calc_reset_btn">Reset Criteria ↺</button>
+  </div>
+
+  <!-- Results Section -->
+  <div class="results-section">
+    <div class="results-header">
+      <div class="results-count">
+        <span data-translate="calc_found">Found</span> <span id="matchCount">16</span> <span data-translate="calc_schemes_text">Eligible Schemes</span>
+      </div>
+      <div class="sector-filter-tabs">
+        <button class="tab-btn active" onclick="setSectorFilter('All', this)">All</button>
+        <button class="tab-btn" onclick="setSectorFilter('Agriculture', this)" data-translate="sec_agri">🌱 Agriculture</button>
+        <button class="tab-btn" onclick="setSectorFilter('Education', this)" data-translate="sec_edu">🎓 Education</button>
+        <button class="tab-btn" onclick="setSectorFilter('Healthcare', this)" data-translate="sec_health">🏥 Healthcare</button>
+        <button class="tab-btn" onclick="setSectorFilter('Housing', this)" data-translate="sec_house">🏠 Housing</button>
+      </div>
+    </div>
+
+    <div class="matches-grid" id="matchesContainer">
+      <!-- Dynamic Matches Rendered Here -->
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/translations.js"></script>
+<script>
+  const SCHEMES_DB = [
+    // Agriculture
+    {
+      id: "pmkisan",
+      name_en: "PM Kisan Samman Nidhi",
+      name_te: "పీఎం కిసాన్ సమ్మాన్ నిధి",
+      sector: "Agriculture",
+      benefit_en: "₹6,000 per year direct bank transfer in 3 installments",
+      benefit_te: "సంవత్సరానికి ₹6,000 నగదు బదిలీ (3 విడతలలో)",
+      desc_en: "Income support for all landholding farmers to meet agriculture & domestic expenses.",
+      desc_te: "భూమి కలిగిన రైతులకు వ్యవసాయ ఖర్చుల నిమిత్తం ఆర్థిక సహాయం అందించే పథకం.",
+      official: "https://pmkisan.gov.in/",
+      matchScore: function(p) {
+        if (p.occupation === 'farmer' || p.land === 'small' || p.land === 'large') return 100;
+        if (p.occupation === 'all' && p.land !== 'none') return 80;
+        return 20;
+      },
+      reasons_en: ["Landholding farmer families", "Valid Aadhaar-linked bank account", "Direct Benefit Transfer eligible"],
+      reasons_te: ["భూమి కలిగిన రైతు కుటుంబాలు", "ఆధార్ అనుసంధాన బ్యాంక్ ఖాతా", "ప్రత్యక్ష నగదు బదిలీ అర్హత"]
+    },
+    {
+      id: "fasalbima",
+      name_en: "Pradhan Mantri Fasal Bima Yojana",
+      name_te: "ప్రధాన మంత్రి ఫసల్ బీమా యోజన",
+      sector: "Agriculture",
+      benefit_en: "Comprehensive crop loss insurance coverage at low 1.5% - 2% premium",
+      benefit_te: "తక్కువ ప్రీమియంతో సమగ్ర పంట నష్ట పరిహార బీమా రక్షణ",
+      desc_en: "Protects farmers against unavoidable natural calamities, pests, and drought loss.",
+      desc_te: "ప్రకృతి వైపరీత్యాలు, తెగుళ్లు మరియు కరువు వల్ల నష్టపోయిన రైతులకు బీమా రక్షణ.",
+      official: "https://pmfby.gov.in/",
+      matchScore: function(p) {
+        if (p.occupation === 'farmer' || p.land === 'small' || p.land === 'large') return 100;
+        if (p.land !== 'none') return 80;
+        return 30;
+      },
+      reasons_en: ["Cultivating notified crops", "Insurance for natural calamity protection"],
+      reasons_te: ["నోటిఫై చేసిన పంటలను సాగు చేయడం", "ప్రకృతి వైపరీత్యాల బీమా రక్షణ"]
+    },
+    {
+      id: "sinchai",
+      name_en: "Krishi Sinchai Yojana (PMKSY)",
+      name_te: "కృషి సించాయి యోజన (PMKSY)",
+      sector: "Agriculture",
+      benefit_en: "Up to 55% - 90% subsidy on drip and sprinkler micro-irrigation systems",
+      benefit_te: "డ్రిప్ మరియు స్ప్రింక్లర్ సూక్ష్మ నీటిపారుదలపై 55% నుండి 90% వరకు సబ్సిడీ",
+      desc_en: "Enhances on-farm water access and efficiency with modern irrigation technologies.",
+      desc_te: "వ్యవసాయ భూముల్లో నీటి సామర్థ్యం మరియు ఆధునిక సాగు పద్ధతులను పెంచడం.",
+      official: "https://www.pmksy.gov.in/",
+      matchScore: function(p) {
+        if (p.occupation === 'farmer' || p.land === 'small') return 100;
+        return 40;
+      },
+      reasons_en: ["Access to farm water resources", "Subsidy on micro-irrigation kits"],
+      reasons_te: ["సాగునీటి వనరులను మెరుగుపరచడం", "మైక్రో ఇరిగేషన్ కిట్లపై సబ్సిడీ"]
+    },
+    {
+      id: "agriinfra",
+      name_en: "Agriculture Infrastructure Fund",
+      name_te: "వ్యవసాయ మౌలిక వసతుల నిధి",
+      sector: "Agriculture",
+      benefit_en: "Interest subvention of 3% per annum on loans up to ₹2 Crore for agri infra",
+      benefit_te: "₹2 కోట్ల వరకు రుణాలపై వార్షిక 3% వడ్డీ రాయితీ",
+      desc_en: "Medium to long-term financing for post-harvest storage, cold chains, and processing units.",
+      desc_te: "కోల్డ్ స్టోరేజ్, గిడ్డంగులు మరియు ప్రాసెసింగ్ యూనిట్ల నిర్మాణానికి రుణాలు.",
+      official: "https://agriinfra.dac.gov.in/",
+      matchScore: function(p) {
+        if (p.occupation === 'farmer' || p.land === 'large') return 90;
+        return 40;
+      },
+      reasons_en: ["Setting up cold stores & warehouses", "Reduced interest on agri-loans"],
+      reasons_te: ["కోల్డ్ స్టోర్ & గోడౌన్ల ఏర్పాటు", "వ్యవసాయ రుణాలపై తక్కువ వడ్డీ"]
+    },
+
+    // Education
+    {
+      id: "vidyadeevena",
+      name_en: "Jagananna Vidya Deevena",
+      name_te: "జగనన్న విద్యా దీవెన",
+      sector: "Education",
+      benefit_en: "100% Full Tuition Fee Reimbursement credited directly to mother's account",
+      benefit_te: "100% పూర్తి కాలేజీ ఫీజు రీయింబర్స్‌మెంట్ తల్లుల ఖాతాలో జమ",
+      desc_en: "Financial assistance for students pursuing ITI, Polytechnic, Degree, and Postgraduate courses.",
+      desc_te: "ఐటీఐ, పాలిటెక్నిక్, డిగ్రీ మరియు పీజీ విద్యార్థుల ఫీజులను ప్రభుత్వం చెల్లిస్తుంది.",
+      official: "https://jnanabhumi.ap.gov.in/",
+      matchScore: function(p) {
+        if (p.education === 'college' && (p.income === 'bpl' || p.income === 'ews')) return 100;
+        if (p.occupation === 'student' || p.education === 'college') return 90;
+        return 30;
+      },
+      reasons_en: ["Enrolled in recognized higher education college", "Annual household income below ₹2.5 Lakhs", "Direct deposit support"],
+      reasons_te: ["గుర్తింపు పొందిన కళాశాలలో ప్రవేశం", "వార్షిక ఆదాయం ₹2.5 లక్షల లోపు", "నేరుగా ఫీజు చెల్లింపు"]
+    },
+    {
+      id: "vasathideevena",
+      name_en: "Jagananna Vasathi Deevena",
+      name_te: "జగనన్న వసతి దీవెన",
+      sector: "Education",
+      benefit_en: "Up to ₹20,000/year for boarding & mess expenses",
+      benefit_te: "వసతి & భోజన ఖర్చుల కోసం సంవత్సరానికి ₹20,000 వరకు ఆర్థిక సహాయం",
+      desc_en: "Covers food and hostel accommodation fees for students staying in institutional hostels.",
+      desc_te: "హాస్టల్‌లో ఉండే విద్యార్థుల భోజన మరియు వసతి ఖర్చుల కోసం ఆర్థిక మద్దతు.",
+      official: "https://aimindia.in/ap-jagananna-vasathi-deevena/",
+      matchScore: function(p) {
+        if (p.education === 'college' && (p.income === 'bpl' || p.income === 'ews')) return 100;
+        if (p.occupation === 'student') return 85;
+        return 30;
+      },
+      reasons_en: ["Hostel and boarding assistance", "Students pursuing professional courses"],
+      reasons_te: ["హాస్టల్ మరియు వసతి సహాయం", "వృత్తి విద్యా కోర్సుల విద్యార్థులు"]
+    },
+    {
+      id: "vidyakanuka",
+      name_en: "Jagananna Vidya Kanuka",
+      name_te: "జగనన్న విద్యా కానుక",
+      sector: "Education",
+      benefit_en: "Free educational kit: Textbooks, notebooks, 3 pairs uniforms, bag & shoes",
+      benefit_te: "ఉచిత విద్యా కిట్: పాఠ్యపుస్తకాలు, నోట్‌బుక్స్, 3 జతల యూనిఫాం, బూట్లు మరియు బ్యాగ్",
+      desc_en: "Distributed to students studying in government and aided schools across the state.",
+      desc_te: "ప్రభుత్వ పాఠశాలల విద్యార్థులకు ఉచితంగా విద్యా కిట్ పంపిణీ.",
+      official: "https://sarkaribhatta.com/jagananna-vidya-kanuka/",
+      matchScore: function(p) {
+        if (p.education === 'school') return 100;
+        if (p.occupation === 'student') return 70;
+        return 20;
+      },
+      reasons_en: ["School-going student in classes 1 to 10", "Zero-cost learning materials"],
+      reasons_te: ["1 నుండి 10 తరగతుల విద్యార్థులు", "ఉచిత విద్యా సామగ్రి"]
+    },
+    {
+      id: "middaymeal",
+      name_en: "PM Poshan Mid-Day Meal Scheme",
+      name_te: "పీఎం పోషణ్ మధ్యాహ్న భోజన పథకం",
+      sector: "Education",
+      benefit_en: "Daily hot nutritious lunches prepared with eggs, fortified rice & vegetables",
+      benefit_te: "ప్రతిరోజూ గుడ్లు, పోషకాలతో కూడిన వేడి వేడి మధ్యాహ్న భోజనం",
+      desc_en: "Improves child nutrition and school attendance across government elementary schools.",
+      desc_te: "పాఠశాలల్లో పిల్లలకు పౌష్టికాహారం అందించడం ద్వారా హాజరును పెంచడం.",
+      official: "https://www.india.gov.in/official-website-mid-day-meal-scheme",
+      matchScore: function(p) {
+        if (p.education === 'school') return 100;
+        return 20;
+      },
+      reasons_en: ["Government and government-aided school students", "Nutrition and health boost"],
+      reasons_te: ["ప్రభుత్వ పాఠశాల విద్యార్థులు", "ఆరోగ్యం మరియు పౌష్టికాహారం"]
+    },
+
+    // Healthcare
+    {
+      id: "ayushman",
+      name_en: "Ayushman Bharat PM-JAY",
+      name_te: "ఆయుష్మాన్ భారత్ పీఎం-జేఏవై",
+      sector: "Healthcare",
+      benefit_en: "₹5,00,000 per family per year cashless treatment for secondary & tertiary hospital care",
+      benefit_te: "కుటుంబానికి సంవత్సరానికి ₹5 లక్షల వరకు ఉచిత నగదు రహిత ఆసుపత్రి చికిత్స",
+      desc_en: "World's largest government-funded health assurance scheme covering 1,900+ medical procedures.",
+      desc_te: "1,900కు పైగా వ్యాధులకు ఉచిత వైద్య చికిత్స అందించే ప్రపంచంలోనే అతిపెద్ద ఆరోగ్య పథకం.",
+      official: "https://beneficiary.nha.gov.in/",
+      matchScore: function(p) {
+        if (p.income === 'bpl' || p.income === 'ews') return 100;
+        if (p.income === 'mig') return 75;
+        return 50;
+      },
+      reasons_en: ["Low-income and vulnerable families", "Cashless hospitalization across 27,000+ hospitals"],
+      reasons_te: ["తక్కువ ఆదాయ కుటుంబాలు", "27,000+ ఆసుపత్రుల్లో నగదు రహిత వైద్యం"]
+    },
+    {
+      id: "nhm",
+      name_en: "National Health Mission (NHM)",
+      name_te: "జాతీయ ఆరోగ్య మిషన్ (NHM)",
+      sector: "Healthcare",
+      benefit_en: "Free maternal deliveries, newborn care, subsidized diagnostic tests & generic medicines",
+      benefit_te: "ఉచిత ప్రసవాలు, నవజాత శిశు సంరక్షణ మరియు ఉచిత ఔషధాల పంపిణీ",
+      desc_en: "Community healthcare outreach focusing on maternal & child health and primary health centers.",
+      desc_te: "ప్రాథమిక ఆరోగ్య కేంద్రాల ద్వారా గ్రామీణ, పట్టణ ప్రజలకు ఉచిత వైద్య సేవలు.",
+      official: "https://andhra-pradesh.20govt.com/nrhm-nhm-ap-recruitment-vacancies/",
+      matchScore: function(p) {
+        return 85;
+      },
+      reasons_en: ["Universal public health entitlement", "Free institutional delivery and checkups"],
+      reasons_te: ["సార్వత్రిక ప్రజా ఆరోగ్య హక్కు", "ఉచిత ప్రభుత్వ ఆసుపత్రి ప్రసవాలు"]
+    },
+    {
+      id: "pmjaycard",
+      name_en: "PMJAY Golden Health Card",
+      name_te: "పీఎంజేఏవై గోల్డెన్ హెల్త్ కార్డ్",
+      sector: "Healthcare",
+      benefit_en: "Instant paperless medical identification card for free surgical treatment",
+      benefit_te: "ఉచిత శస్త్రచికిత్సల కోసం తక్షణ కాగితరహిత డిజిటల్ హెల్త్ కార్డ్",
+      desc_en: "Enables fast cashless admissions, ICU care, and surgical diagnostics.",
+      desc_te: "ఆసుపత్రులలో ఐసీయూ, సర్జరీలు మరియు చికిత్సలకు తక్షణ ప్రవేశ కార్డు.",
+      official: "https://beneficiary.nha.gov.in/",
+      matchScore: function(p) {
+        if (p.income === 'bpl' || p.income === 'ews') return 100;
+        return 60;
+      },
+      reasons_en: ["Aadhaar-linked electronic health card", "Pre-existing diseases covered from day one"],
+      reasons_te: ["ఆధార్ అనుసంధాన డిజిటల్ హెల్త్ కార్డ్", "మొదటి రోజు నుంచే ముందస్తు వ్యాధులకు కవరేజ్"]
+    },
+    {
+      id: "rashtriyabima",
+      name_en: "Rashtriya Swasthya Bima Yojana",
+      name_te: "రాష్ట్రీయ స్వాస్థ్య బీమా యోజన",
+      sector: "Healthcare",
+      benefit_en: "Health protection package for unorganized laborers and informal workers",
+      benefit_te: "అసంఘటిత రంగ శ్రామికులు మరియు దినసరి కూలీలకు ప్రత్యేక ఆరోగ్య బీమా",
+      desc_en: "Financial shield against catastrophic hospitalization costs for informal workforce.",
+      desc_te: "కూలీలు మరియు కార్మికులకు అనారోగ్య సమయాల్లో ఆర్థిక భరోసా.",
+      official: "https://www.india.gov.in/spotlight/rashtriya-swasthya-bima-yojana",
+      matchScore: function(p) {
+        if (p.occupation === 'worker' || p.income === 'bpl') return 100;
+        return 50;
+      },
+      reasons_en: ["Unorganized sector worker families", "Cashless smart card hospitalization"],
+      reasons_te: ["అసంఘటిత రంగ కార్మిక కుటుంబాలు", "స్మార్ట్ కార్డ్ ద్వారా ఉచిత చికిత్స"]
+    },
+
+    // Housing
+    {
+      id: "pmay",
+      name_en: "Pradhan Mantri Awas Yojana (PMAY)",
+      name_te: "ప్రధాన మంత్రి ఆవాస్ యోజన (PMAY)",
+      sector: "Housing",
+      benefit_en: "Direct financial grant of up to ₹1.5 - ₹2.5 Lakhs for constructing a pucca house",
+      benefit_te: "పక్కా ఇల్లు నిర్మించుకోవడానికి ₹1.5 నుండి ₹2.5 లక్షల వరకు ప్రత్యక్ష ఆర్థిక సహాయం",
+      desc_en: "Flagship housing mission to ensure every homeless and kutcha-house family owns a pucca home.",
+      desc_te: "గృహ రహిత పేద కుటుంబాలందరికీ పక్కా నివాసం అందించే ప్రతిష్టాత్మక పథకం.",
+      official: "https://pmaymis.gov.in/PMAYMIS2_2024/PmayDefault.aspx",
+      matchScore: function(p) {
+        if (p.housing === 'kutcha' || p.housing === 'rent' || p.occupation === 'homeless') return 100;
+        if (p.income === 'bpl' || p.income === 'ews') return 90;
+        return 40;
+      },
+      reasons_en: ["Family does not own a pucca house anywhere in India", "Income category within EWS / LIG criteria"],
+      reasons_te: ["దేశంలో ఎక్కడా సొంత పక్కా ఇల్లు లేకపోవడం", "ఆదాయ పరిమితి నిబంధనలకు లోబడి ఉండటం"]
+    },
+    {
+      id: "clss",
+      name_en: "Credit Linked Subsidy Scheme (CLSS)",
+      name_te: "క్రెడిట్ లింక్డ్ సబ్సిడీ పథకం (CLSS)",
+      sector: "Housing",
+      benefit_en: "Interest subsidy of up to 6.5% on home loans (saving up to ₹2.67 Lakhs)",
+      benefit_te: "గృహ రుణ వడ్డీపై 6.5% వరకు సబ్సిడీ (₹2.67 లక్షల వరకు ఆదా)",
+      desc_en: "Upfront subsidy on housing loans for first-time home buyers in urban and semi-urban regions.",
+      desc_te: "మొదటిసారి ఇల్లు నిర్మించుకునే లేదా కొనుగోలు చేసే వారికి గృహ రుణ వడ్డీ రాయితీ.",
+      official: "https://pmay-urban.gov.in/credit-linked-subsidy-scheme",
+      matchScore: function(p) {
+        if ((p.income === 'ews' || p.income === 'mig') && p.housing !== 'pucca') return 100;
+        return 65;
+      },
+      reasons_en: ["First-time home buyer", "Subsidized home loan interest rate"],
+      reasons_te: ["మొదటిసారి ఇల్లు కొనుగోలు చేసేవారు", "వడ్డీ రాయితీ పొందే అవకాశం"]
+    },
+    {
+      id: "arhc",
+      name_en: "Affordable Rental Housing Complexes (ARHC)",
+      name_te: "సరసమైన అద్దె గృహ సముదాయాలు (ARHC)",
+      sector: "Housing",
+      benefit_en: "Dignified, subsidized rental accommodation with clean water, power & sanitation",
+      benefit_te: "తాగునీరు, విద్యుత్ మరియు పారిశుద్ధ్య వసతులతో తక్కువ అద్దెకే ఇళ్లు",
+      desc_en: "Near work-site rental complexes for urban migrants, industrial laborers, and street vendors.",
+      desc_te: "పట్టణ వలస కార్మికులు, పారిశ్రామిక శ్రామికుల కోసం అనువైన నివాసాలు.",
+      official: "https://arhc.mohua.gov.in/",
+      matchScore: function(p) {
+        if (p.housing === 'rent' || p.occupation === 'worker') return 100;
+        return 40;
+      },
+      reasons_en: ["Urban migrant or informal worker", "Affordable monthly rental model"],
+      reasons_te: ["వలస కార్మికుడు లేదా శ్రామికుడు", "తక్కువ నెలవారీ అద్దె"]
+    },
+    {
+      id: "blc",
+      name_en: "Beneficiary Led Construction (BLC)",
+      name_te: "బెనిఫిషియరీ లెడ్ కన్‌స్ట్రక్షన్ (BLC)",
+      sector: "Housing",
+      benefit_en: "Direct state assistance of ₹1.50 Lakh for individual house construction",
+      benefit_te: "వ్యక్తిగత ఇల్లు నిర్మించుకోవడానికి నేరుగా ₹1.50 లక్షల ప్రభుత్వ సహాయం",
+      desc_en: "For families having their own land wishing to construct a new pucca dwelling.",
+      desc_te: "సొంత స్థలం ఉండి పక్కా ఇల్లు కట్టుకోవాలనుకునే కుటుంబాల కోసం.",
+      official: "https://www.pmay-urban.gov.in/blc",
+      matchScore: function(p) {
+        if (p.housing === 'kutcha' || p.income === 'bpl') return 100;
+        return 45;
+      },
+      reasons_en: ["Owns an existing land parcel", "Upgradation from kutcha to pucca home"],
+      reasons_te: ["సొంతంగా భూమి కలిగి ఉండటం", "కచ్చా ఇంటి నుంచి పక్కా ఇంటి నిర్మాణం"]
+    }
+  ];
+
+  let currentSectorFilter = 'All';
+
+  function getProfile() {
+    return {
+      occupation: document.getElementById('occupation').value,
+      income: document.getElementById('income').value,
+      land: document.getElementById('land').value,
+      education: document.getElementById('education').value,
+      housing: document.getElementById('housing').value
+    };
+  }
+
+  function runCalculator() {
+    const profile = getProfile();
+    const container = document.getElementById('matchesContainer');
+    container.innerHTML = '';
+    const currentLang = localStorage.getItem('myparishkar_lang') || 'en';
+
+    const scored = SCHEMES_DB.map(s => {
+      return {
+        ...s,
+        score: s.matchScore(profile)
+      };
+    }).filter(s => {
+      if (currentSectorFilter !== 'All' && s.sector !== currentSectorFilter) {
+        return false;
+      }
+      return s.score >= 40;
+    }).sort((a, b) => b.score - a.score);
+
+    document.getElementById('matchCount').textContent = scored.length;
+
+    if (scored.length === 0) {
+      const emptyMsg = currentLang === 'te' 
+        ? `<h3>ఈ విభాగంలో మీ వివరాలకు సరిపోలే పథకాలు కనుగొనబడలేదు.</h3><p style="margin-top: 8px;">ఆదాయ వర్గాన్ని మార్చండి లేదా "అన్ని రంగాలు" ఎంచుకోండి.</p>`
+        : `<h3>No schemes matched your exact criteria in this sector.</h3><p style="margin-top: 8px;">Try adjusting your income range or selecting "All Sectors".</p>`;
+      container.innerHTML = `
+        <div style="background: white; padding: 40px; border-radius: 16px; text-align: center; color: #64748b;">
+          ${emptyMsg}
+        </div>
+      `;
+      return;
+    }
+
+    scored.forEach(scheme => {
+      let badgeClass = 'score-mid';
+      let badgeText = currentLang === 'te' ? 'అర్హత ఉన్న పథకం' : 'Eligible Match';
+      if (scheme.score >= 90) {
+        badgeClass = 'score-100';
+        badgeText = currentLang === 'te' ? '🎯 100% ఉత్తమ అర్హత' : '🎯 100% High Match';
+      } else if (scheme.score >= 70) {
+        badgeClass = 'score-high';
+        badgeText = currentLang === 'te' ? '🌟 బలమైన సరిపోలిక' : '🌟 Strong Match';
+      }
+
+      const schemeName = currentLang === 'te' ? (scheme.name_te || scheme.name_en) : scheme.name_en;
+      const benefitText = currentLang === 'te' ? (scheme.benefit_te || scheme.benefit_en) : scheme.benefit_en;
+      const descText = currentLang === 'te' ? (scheme.desc_te || scheme.desc_en) : scheme.desc_en;
+      const reasonsList = currentLang === 'te' ? (scheme.reasons_te || scheme.reasons_en) : scheme.reasons_en;
+      const applyBtnText = currentLang === 'te' ? 'ఆన్‌లైన్‌లో దరఖాస్తు →' : 'Apply Online Now →';
+
+      const card = document.createElement('div');
+      card.className = 'match-card';
+      card.innerHTML = `
+        <div>
+          <div class="match-top">
+            <span class="badge-tag" style="background: #e8f5e9; color: #2e7d32; font-weight: bold; margin: 0;">${scheme.sector}</span>
+            <span class="score-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <h3 class="match-title">${schemeName}</h3>
+          <div class="benefit-ribbon">🎁 ${benefitText}</div>
+          <p class="match-desc">${descText}</p>
+          <ul class="qualify-reasons">
+            ${reasonsList.map(r => `<li><span>✓</span> ${r}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="match-actions">
+          <a href="/apply/?sector=${encodeURIComponent(scheme.sector)}&scheme=${encodeURIComponent(scheme.name_en)}" class="apply-btn">${applyBtnText}</a>
+          <a href="${scheme.official}" target="_blank" rel="noopener" class="official-link">Portal ↗</a>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function setSectorFilter(sector, btn) {
+    currentSectorFilter = sector;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    runCalculator();
+  }
+
+  function resetForm() {
+    document.getElementById('occupation').value = 'all';
+    document.getElementById('income').value = 'bpl';
+    document.getElementById('land').value = 'any';
+    document.getElementById('education').value = 'any';
+    document.getElementById('housing').value = 'any';
+    currentSectorFilter = 'All';
+    document.querySelectorAll('.tab-btn').forEach((b, idx) => {
+      b.classList.toggle('active', idx === 0);
+    });
+    runCalculator();
+  }
+
+  window.addEventListener('languageChanged', () => {
+    runCalculator();
+  });
+
+  // Initial Run
+  runCalculator();
+</script>
+
+</body>
+</html>

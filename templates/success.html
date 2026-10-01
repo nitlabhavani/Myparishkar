@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Submitted - My Parishkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(135deg, #0d3b1e 0%, #1b5e20 50%, #2e7d32 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .success-card {
+    background: white;
+    padding: 45px 35px;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+    text-align: center;
+    max-width: 460px;
+    width: 90%;
+  }
+
+  .lang-select {
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid #c8e6c9;
+    background: #f1f8f3;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    color: #2e7d32;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+  }
+
+  p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 30px;
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+  }
+
+  .btn:hover {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  }
+</style>
+</head>
+<body>
+
+<div class="success-card">
+  <div>
+    <select id="language" class="lang-select">
+      <option value="en">English</option>
+      <option value="te">తెలుగు</option>
+    </select>
+  </div>
+  <div class="icon">✅</div>
+  <h1 data-translate="success_title">Application Submitted!</h1>
+  <p data-translate="success_desc">Thank you. Your scheme application has been received and is currently under review by our department.</p>
+  <a href="{% url 'user_main' %}" class="btn" data-translate="return_dash_btn">Return to Dashboard</a>
+</div>
+
+<script src="/static/js/translations.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Schemes - My Parishkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(to right, #4CAF50, #81C784);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+  }
+
+  .nav-brand {
+    color: white;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lang-select {
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .lang-select option {
+    color: #111827;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 20px;
+    color: white;
+  }
+
+  header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.3rem;
+    margin-bottom: 8px;
+  }
+
+  .sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .sector-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .sector-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  }
+
+  .sector-card h2 {
+    color: #4CAF50;
+    margin: 10px 0;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .sector-card p {
+    color: #666;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="{% url 'user_main' %}" class="nav-brand">
+    <span>🌾</span>
+    <span data-translate="app_title">My Parishkar</span>
+  </a>
+  <div class="nav-right">
+    <select id="language" class="lang-select">
+      <option value="en">English</option>
+      <option value="te">తెలుగు</option>
+    </select>
+    <a href="{% url 'user_main' %}" class="nav-link" data-translate="back_to_dashboard">← Dashboard</a>
+  </div>
+</nav>
+
+<header>
+  <h1 data-translate="all_schemes">Explore Government Schemes</h1>
+  <p data-translate="sectors_desc">Select any sector to browse available welfare schemes and programs</p>
+</header>
+
+<div class="sectors-grid">
+  <a href="{% url 'agriculture' %}" class="sector-card">
+    <h2 data-translate="sec_agri">🌱 Agriculture</h2>
+    <p data-translate="sec_agri_sub">Financial support, crop insurance & irrigation schemes</p>
+  </a>
+  <a href="{% url 'education' %}" class="sector-card">
+    <h2 data-translate="sec_edu">🎓 Education</h2>
+    <p data-translate="sec_edu_sub">Scholarships, fee reimbursements & educational kits</p>
+  </a>
+  <a href="{% url 'health' %}" class="sector-card">
+    <h2 data-translate="sec_health">🏥 Healthcare</h2>
+    <p data-translate="sec_health_sub">Health insurance, maternal care & free medical facilities</p>
+  </a>
+  <a href="{% url 'housing' %}" class="sector-card">
+    <h2 data-translate="sec_house">🏠 Housing</h2>
+    <p data-translate="sec_house_sub">Affordable housing, credit subsidies & construction grants</p>
+  </a>
+</div>
+
+<script src="/static/js/translations.js"></script>
+
+</body>
+</html>

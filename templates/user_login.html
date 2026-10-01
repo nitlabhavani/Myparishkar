@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Login - My Parishkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2e7d32;
+    --primary-light: #43a047;
+    --primary-dark: #1b5e20;
+    --accent: #ffb300;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(135deg, #0d3b1e 0%, #1b5e20 50%, #2e7d32 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .login-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    padding: 44px 36px;
+    border-radius: 20px;
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.28);
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 10;
+  }
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .brand-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e8f5e9;
+    color: var(--primary);
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .lang-select {
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid #c8e6c9;
+    background: #f1f8f3;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: pointer;
+    outline: none;
+  }
+
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #6b7280;
+    font-size: 0.92rem;
+    margin-bottom: 24px;
+  }
+
+  .messages {
+    margin-bottom: 20px;
+  }
+
+  .alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .alert-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+
+  .alert-success {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #c8e6c9;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+    text-align: left;
+  }
+
+  label {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: #9ca3af;
+    pointer-events: none;
+  }
+
+  input[type="text"],
+  input[type="email"], 
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 42px 12px 40px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    background: #f9fafb;
+  }
+
+  input:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.15);
+  }
+
+  .toggle-pw {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #6b7280;
+    padding: 0;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 10px;
+    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+  }
+
+  .submit-btn:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(46, 125, 50, 0.45);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 24px 0 18px;
+    color: #9ca3af;
+    font-size: 0.8rem;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+  }
+  .divider span { padding: 0 10px; }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    font-size: 0.88rem;
+  }
+
+  .links a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .links a:hover {
+    text-decoration: underline;
+    color: var(--primary-dark);
+  }
+
+  .admin-switch {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed #e5e7eb;
+    font-size: 0.82rem;
+    color: #6b7280;
+  }
+
+  .admin-switch a {
+    color: #1565c0;
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <div class="top-row">
+    <span class="brand-chip">🌾 <span data-translate="citizen_heading">Citizen Portal</span></span>
+    <select id="language" class="lang-select">
+      <option value="en">English</option>
+      <option value="te">తెలుగు</option>
+    </select>
+  </div>
+
+  <h1 data-translate="login_welcome">Welcome Back</h1>
+  <p class="subtitle" data-translate="login_subtitle">Log in to view schemes and track your applications</p>
+
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          <span>{% if message.tags == 'error' %}⚠️{% else %}ℹ️{% endif %}</span>
+          <span>{{ message }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="POST" action="{% url 'user_login' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="email" data-translate="email_or_user">Email or Username</label>
+      <div class="input-wrapper">
+        <span class="input-icon">✉️</span>
+        <input type="text" id="email" name="email" value="{{ email|default:'' }}" placeholder="name@example.com" required autocomplete="username">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password" data-translate="password">Password</label>
+      <div class="input-wrapper">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+        <button type="button" class="toggle-pw" onclick="togglePassword('password', this)" title="Show/Hide Password">👁️</button>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" data-translate="login_btn">Log In to Citizen Portal</button>
+  </form>
+
+  <div class="divider"><span>OR</span></div>
+
+  <div class="links">
+    <div><span data-translate="no_account">Don't have an account?</span> <a href="{% url 'user_signup' %}" data-translate="create_account">Create Citizen Account</a></div>
+    <div><a href="{% url 'home' %}" data-translate="back_to_gateway">← Back to Main Gateway</a></div>
+  </div>
+
+  <div class="admin-switch">
+    <span data-translate="are_you_admin">Are you an official/staff member?</span> <a href="{% url 'admin_login' %}" data-translate="switch_admin">Officer Login 🏛️</a>
+  </div>
+</div>
+
+<script src="/static/js/translations.js"></script>
+<script>
+  function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.textContent = '🙈';
+    } else {
+      input.type = 'password';
+      btn.textContent = '👁️';
+    }
+  }
+</script>
+
+</body>
+</html>
