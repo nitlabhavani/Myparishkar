@@ -65,6 +65,13 @@ const TRANSLATIONS = {
     "my_applications": "📋 My Scheme Applications",
     "no_applications": "You haven't submitted any scheme applications yet.",
     "apply_now_prompt": "Apply for a Scheme Now",
+    "stat_total_sectors": "Welfare Sectors",
+    "stat_total_schemes": "Flagship Schemes",
+    "stat_my_apps": "My Applications",
+    "stat_verification_rate": "Instant Verification",
+    "stat_total_sectors_val": "4 Sectors",
+    "stat_total_schemes_val": "16+ Schemes",
+    "stat_instant_badge": "⚡ Live Status",
 
     // Table Headers
     "th_id": "#",
@@ -331,6 +338,13 @@ const TRANSLATIONS = {
     "my_applications": "📋 నా సంక్షేమ దరఖాస్తులు",
     "no_applications": "మీరు ఇంకా ఎటువంటి పథకానికి దరఖాస్తు చేసుకోలేదు.",
     "apply_now_prompt": "ఇప్పుడే దరఖాస్తు చేసుకోండి",
+    "stat_total_sectors": "సంక్షేమ రంగాలు",
+    "stat_total_schemes": "ఫ్లాగ్‌షిప్ పథకాలు",
+    "stat_my_apps": "నా దరఖాస్తులు",
+    "stat_verification_rate": "త్వరిత ధృవీకరణ",
+    "stat_total_sectors_val": "4 రంగాలు",
+    "stat_total_schemes_val": "16+ పథకాలు",
+    "stat_instant_badge": "⚡ లైవ్ స్థితి",
 
     // Table Headers
     "th_id": "క్రమ సంఖ్య",

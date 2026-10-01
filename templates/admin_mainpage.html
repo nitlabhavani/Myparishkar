@@ -127,35 +127,43 @@
 
   .stat-card {
     background: white;
-    padding: 22px 20px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    padding: 24px 22px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.04);
     border: 1px solid #e2e8f0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(13, 71, 161, 0.12);
+    border-color: #90caf9;
   }
 
   .stat-card .info h3 {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 6px;
+    font-weight: 700;
   }
 
   .stat-card .info .num {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.85rem;
     font-weight: 800;
     color: #0f172a;
   }
 
   .stat-icon {
-    font-size: 2rem;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    font-size: 1.8rem;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,9 +172,9 @@
   /* Cards */
   .card {
     background: white;
-    border-radius: 16px;
-    padding: 26px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
     border: 1px solid #e2e8f0;
     margin-bottom: 30px;
   }
@@ -175,30 +183,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     flex-wrap: wrap;
     gap: 12px;
   }
 
   .card-header h2 {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: #0f172a;
   }
 
   .filter-input {
-    padding: 8px 14px;
+    padding: 9px 16px;
     border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 0.85rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
     outline: none;
     font-family: inherit;
-    width: 240px;
+    width: 250px;
+    transition: all 0.2s;
   }
 
   .filter-input:focus {
     border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
   }
 
   /* Tables */
@@ -208,7 +218,7 @@
   }
 
   th, td {
-    padding: 12px 14px;
+    padding: 13px 15px;
     text-align: left;
     border-bottom: 1px solid #f1f5f9;
     font-size: 0.88rem;
@@ -218,54 +228,77 @@
     background: #f8fafc;
     color: #475569;
     font-weight: 600;
+    border-radius: 6px;
   }
 
   tr:hover {
     background: #f8fafc;
   }
 
+  /* Badges & Actions */
   .badge-pill {
-    display: inline-block;
-    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
     border-radius: 20px;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     font-weight: 700;
   }
 
-  .pill-approved { background: #dcfce7; color: #15803d; }
-  .pill-pending { background: #fef3c7; color: #b45309; }
-  .pill-rejected { background: #fee2e2; color: #b91c1c; }
-  .pill-active { background: #e0f2fe; color: #0369a1; }
+  .pill-approved { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+  .pill-pending { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+  .pill-rejected { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+  .pill-active { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
 
   .status-form {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
 
   .status-select {
-    padding: 5px 8px;
-    border-radius: 6px;
+    padding: 6px 10px;
+    border-radius: 8px;
     border: 1px solid #cbd5e1;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 600;
     background: white;
+    outline: none;
   }
 
   .update-btn {
-    padding: 5px 10px;
-    background: var(--admin-primary);
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 0.78rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s;
+    box-shadow: 0 4px 10px rgba(21, 101, 192, 0.25);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .update-btn:hover {
-    background: var(--admin-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(21, 101, 192, 0.38);
+  }
+
+  /* Uiverse Ripples */
+  .ui-ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: rippleAnim 0.6s linear;
+    background-color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+  }
+  @keyframes rippleAnim {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
   }
 
   .empty-state {
@@ -446,6 +479,7 @@
 </div>
 
 <script src="/static/js/translations.js"></script>
+<script src="/static/js/ui_effects.js"></script>
 <script>
   function filterTable(tableId, query) {
     const q = query.toLowerCase().trim();

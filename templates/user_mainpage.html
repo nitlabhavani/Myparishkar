@@ -112,24 +112,44 @@
   }
 
   /* Hero Banner */
+  /* Hero Banner */
   .dash-hero {
     background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #43a047 100%);
     color: white;
-    padding: 40px 20px 50px;
+    padding: 45px 20px 55px;
     text-align: center;
     position: relative;
+    overflow: hidden;
+  }
+
+  .ambient-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    z-index: 1;
+    opacity: 0.85;
+  }
+
+  .dash-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   .dash-hero h1 {
     font-family: 'Outfit', sans-serif;
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     font-weight: 800;
     margin-bottom: 8px;
   }
 
   .dash-hero p {
     font-size: 1.05rem;
-    opacity: 0.92;
+    opacity: 0.94;
     max-width: 600px;
     margin: 0 auto 24px;
   }
@@ -143,13 +163,19 @@
 
   .search-input {
     width: 100%;
-    padding: 14px 20px 14px 46px;
+    padding: 14px 75px 14px 46px;
     border-radius: 30px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.4);
     font-size: 0.95rem;
     font-family: inherit;
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     outline: none;
+    transition: all 0.25s ease;
+  }
+
+  .search-input:focus {
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+    border-color: #ffe082;
   }
 
   .search-icon {
@@ -161,11 +187,84 @@
     color: #9ca3af;
   }
 
+  .search-shortcut-badge {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    pointer-events: none;
+  }
+
   /* Container */
   .container {
     max-width: 1200px;
     margin: 35px auto 60px;
     padding: 0 20px;
+  }
+
+  /* Shadcn Analytics Strip */
+  .dash-analytics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+  }
+
+  .stat-analytic-card {
+    background: white;
+    padding: 20px 22px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stat-analytic-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(46, 125, 50, 0.12);
+    border-color: #81c784;
+  }
+
+  .stat-analytic-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .icon-green { background: #e8f5e9; }
+  .icon-blue { background: #e0f2fe; }
+  .icon-amber { background: #fef3c7; }
+  .icon-purple { background: #f3e8ff; }
+
+  .stat-analytic-info h4 {
+    font-size: 0.78rem;
+    color: #6b7280;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 3px;
+  }
+
+  .stat-analytic-info .val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #111827;
   }
 
   .messages-box {
@@ -188,33 +287,53 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     flex-wrap: wrap;
     gap: 12px;
   }
 
   .section-header h2 {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.55rem;
+    font-weight: 800;
     color: #111827;
   }
 
   .apply-quick-btn {
     background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
     color: white;
-    padding: 9px 18px;
-    border-radius: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.88rem;
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
-    transition: all 0.2s;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.28);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
 
   .apply-quick-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
+  }
+
+  /* Uiverse Ripples */
+  .ui-ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: rippleAnim 0.6s linear;
+    background-color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+  }
+  @keyframes rippleAnim {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
   }
 
   .sectors-grid {
@@ -362,12 +481,16 @@
 
 <!-- Hero -->
 <header class="dash-hero">
-  <h1><span data-translate="welcome_user">Welcome</span>, {{ request.user.first_name|default:request.user.username }}!</h1>
-  <p data-translate="dash_subtitle">Explore government welfare schemes or track your submitted applications</p>
+  <canvas id="dashHeroCanvas" class="ambient-canvas"></canvas>
+  <div class="dash-hero-content">
+    <h1><span data-translate="welcome_user">Welcome</span>, {{ request.user.first_name|default:request.user.username }}!</h1>
+    <p data-translate="dash_subtitle">Explore government welfare schemes or track your submitted applications</p>
 
-  <div class="search-wrapper">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="schemeSearch" class="search-input" data-translate-placeholder="search_schemes_placeholder" placeholder="Search schemes (e.g. Kisan, Vidya, Ayushman, PMAY)..." onkeyup="filterSectors(this.value)">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="schemeSearch" class="search-input" data-translate-placeholder="search_schemes_placeholder" placeholder="Search schemes (e.g. Kisan, Vidya, Ayushman, PMAY)..." onkeyup="filterSectors(this.value)">
+      <span class="search-shortcut-badge">Ctrl + K</span>
+    </div>
   </div>
 </header>
 
@@ -379,6 +502,38 @@
       {% endfor %}
     </div>
   {% endif %}
+
+  <!-- Shadcn Style Analytics Strip -->
+  <div class="dash-analytics-strip">
+    <div class="stat-analytic-card">
+      <div class="stat-analytic-icon icon-green">🌱</div>
+      <div class="stat-analytic-info">
+        <h4 data-translate="stat_total_sectors">Welfare Sectors</h4>
+        <div class="val" data-translate="stat_total_sectors_val">4 Sectors</div>
+      </div>
+    </div>
+    <div class="stat-analytic-card">
+      <div class="stat-analytic-icon icon-amber">📜</div>
+      <div class="stat-analytic-info">
+        <h4 data-translate="stat_total_schemes">Flagship Schemes</h4>
+        <div class="val" data-translate="stat_total_schemes_val">16+ Schemes</div>
+      </div>
+    </div>
+    <div class="stat-analytic-card">
+      <div class="stat-analytic-icon icon-blue">📋</div>
+      <div class="stat-analytic-info">
+        <h4 data-translate="stat_my_apps">My Applications</h4>
+        <div class="val count-animate" data-target="{{ user_applications|length }}">{{ user_applications|length }}</div>
+      </div>
+    </div>
+    <div class="stat-analytic-card">
+      <div class="stat-analytic-icon icon-purple">⚡</div>
+      <div class="stat-analytic-info">
+        <h4 data-translate="stat_verification_rate">Instant Verification</h4>
+        <div class="val" data-translate="stat_instant_badge">⚡ Live Status</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Sectors -->
   <div class="section-header">
@@ -479,6 +634,7 @@
 </div>
 
 <script src="/static/js/translations.js"></script>
+<script src="/static/js/ui_effects.js"></script>
 <script>
   function filterSectors(query) {
     const q = query.toLowerCase().trim();
@@ -492,6 +648,18 @@
       }
     });
   }
+
+  // Quick keyboard shortcut (Ctrl + K or /) to focus search
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+      e.preventDefault();
+      const searchInput = document.getElementById('schemeSearch');
+      if (searchInput) {
+        searchInput.focus();
+        searchInput.select();
+      }
+    }
+  });
 </script>
 
 </body>
